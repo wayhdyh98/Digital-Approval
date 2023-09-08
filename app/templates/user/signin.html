@@ -1,0 +1,40 @@
+{% extends "layouts/home.html" %}
+
+{% block content %}
+
+<div class="container mt-2 mb-2">
+
+	<div class="form-signin">
+
+		<div class="row card-signin py-4" style="margin: 0px 370px">
+			<div class="card-signin-left col">
+				<div class="card-signin-title mb-3">
+					<h1>Sign In</h1>
+				</div>
+
+				<span class="text-warning mt-2 mb-2">You can use the orange's username</span>
+
+				<form class="form" action="{{ url_for('userbp.signin') }}" method="post">
+					{{ m.render_field(form.userid, class='form-control') }}
+					{{ m.render_field(form.password, class='form-control') }}
+					{{ form.csrf_token }}
+					<button class="btn btn-large btn-block btn-primary form-control mt-3" type="submit">Sign In</button>
+				</form>
+			</div>
+
+			<!--
+			<div class="card-signin-right col">
+				<div class="row">
+					<h1 class="col-12"co>Hello, Friend!</h1>
+					<h6 class="col-12">Enter your personal details and start journey with us</h6>
+					<a href="{{ url_for('userbp.signup') }}" class="btn btn-large btn-block btn-dark mt-3">Sign Up</a>
+				</div>
+			</div>
+			-->
+		</div>
+
+	</div>
+
+</div>
+
+{% endblock %}

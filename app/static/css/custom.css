@@ -1,0 +1,225 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+header {
+    padding: 5rem;
+}
+
+h1 {
+    color: black;
+}
+
+h1.banner-title {
+    font-size: 42px;
+}
+
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.hero {
+    padding: 80px 0px;
+}
+
+
+/* Forms */
+
+.form {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.form-user {
+    width: 33% !important;
+    margin: 0 auto !important;
+    margin-top: 10% !important;
+}
+
+.form-error {
+    color: #E50000 !important;
+}
+
+
+/* Forms sign-up */
+
+.form-signup {
+    height: 80vh;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.card-signup {
+    width: 400px;
+    background-color: #ffffff;
+    padding: 10px 30px;
+    padding-bottom: 20px;
+}
+
+@media screen and (min-width: 1366px) {
+
+    .card-signup {
+        border-radius: 10px 0 10px 0;
+        width: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 40px rgba(0, 0, 0, .15);
+        padding: 10px 30px;
+        padding-bottom: 20px;
+    }
+
+}
+
+.card-signup-title {
+    text-align: center;
+    padding: 10px;
+}
+
+.card-signup-title h1 {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+
+/* Forms sign-in */
+
+.form-signin {
+    height: 80vh;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.card-signin {
+    width: 800px;
+    background-color: #ffffff;
+    padding: 10px 30px;
+    padding-bottom: 20px;
+}
+
+.card-signin-left {
+    margin-right: 20px;
+}
+
+.card-signin-right {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-left: 20px;
+}
+
+@media screen and (min-width: 1366px) {
+
+    .card-signin {
+        border-radius: 10px 0 10px 0;
+        width: 800px;
+        background-color: #ffffff;
+        box-shadow: 0 0 40px rgba(0, 0, 0, .15);
+        padding: 10px 30px;
+        padding-bottom: 20px;
+    }
+
+}
+
+.card-signin-title {
+    text-align: center;
+    padding: 10px;
+}
+
+.card-signin-title h1 {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+
+/* navbar */
+.navbar {
+    border: 0;
+	border-radius: 0;
+}
+
+
+/* sidebar */
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul p {
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+ul ul a {
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+
+/* messages */
+.messages-block {
+    padding: 2px;
+}
+
+
+/* form */
+.navigation-addedit {
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgba(191, 191, 191, 0.15);
+}
+
+.form-control {
+    font-size: 14px;
+}
+
+
+/* print */
+.pagebreak { page-break-before: always; }

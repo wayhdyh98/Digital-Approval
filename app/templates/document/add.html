@@ -1,0 +1,76 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+
+<h3>{{ title }}</h3>
+
+<div class="card flex-fill">
+    <div class="card-header">
+        <div class="card-actions float-end">
+            <div class="dropdown position-relative"></div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form class="form" action="{{ url_for('documentbp.add') }}" method="post">
+            {{ m.render_field(form.documentname, class='form-control') }}
+            {{ m.render_field(form.documentdescription, class='form-control', rows=5) }}
+            {{ m.render_field(form.documentversion, class='form-control', type='number') }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ m.render_field(form.documentisprint, class='form-control') }}
+                </div>
+                <div class="col-md-6">
+                    {{ m.render_field(form.documentlayout, class='form-control') }}
+                </div>
+                <div class="col-md-6">
+                    {{ m.render_field(form.documentstatus, class='form-control') }}
+                </div>
+                <div class="col-md-6">
+                    {{ m.render_field(form.documentsignature, class='form-control') }}
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <h2>Access Authorization</h2>
+                <div class="row mb-2">
+                    <div class="col-6">{{ form.documentaccess_staff }} STAFF</div>
+                    <div class="col-6">{{ form.documentaccess_supervisor }} SUPERVISOR</div>
+                    <div class="col-6">{{ form.documentaccess_deputydepthead }} DEPUTY DEPARTMENT HEAD</div>
+                    <div class="col-6">{{ form.documentaccess_depthead }} DEPARTMENT HEAD</div>
+                    <div class="col-6">{{ form.documentaccess_deputydivhead }} DEPUTY DIVISION HEAD</div>
+                    <div class="col-6">{{ form.documentaccess_divhead }} DIVISION HEAD</div>
+                    <div class="col-6">{{ form.documentaccess_directur }} DIREKTUR</div>
+                </div>
+            </div>
+
+            <!-- navigation save, cancel -->
+            <div class="navigation-addedit">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{ url_for('documentbp.browse') }}" class="btn btn-light col-12" id="btn-cancel"><i class="fa fa-ban"
+                                aria-hidden="true"></i>
+                            cancel</a>
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.csrf_token }}
+                        <button class="btn btn-primary col-12" id="btn-save" type="submit"><i class="fa fa-floppy-disk"
+                                aria-hidden="true"></i>
+                            save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    var validation_insert = '{{ validation }}'
+</script>
+
+{% endblock %}
+
+{% block scriptcustom %}
+
+<script src="{{ url_for('static', filename='js/page/document/add.js') }}"></script>
+
+{% endblock %}

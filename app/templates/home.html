@@ -1,0 +1,49 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+
+
+<h2>Welcome to MPM Approval Online</h2>
+
+<!-- dashboard -->
+<div class="row">
+    <div class="col-12 col-sm-6 col-xxl-3 d-flex">
+        <div class="card flex-fill">
+            <div class="card-body py-4">
+                <div class="d-flex align-items-start">
+                    <div class="flex-grow-1">
+                        <h3 class="mb-2" id="totalapproved">{{ request.totalapprove }}</h3>
+                        <p class="mb-2">Total Documents</p>
+                        <div class="mb-0">
+                            <span class="text-muted"><strong>Approved</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xxl-3 d-flex">
+        <div class="card flex-fill">
+            <div class="card-body py-4">
+                <div class="d-flex align-items-start">
+                    <div class="flex-grow-1">
+                        <h3 class="mb-2" id="totaldocument">{{ request.totalpending }}</h3>
+                        <p class="mb-2">Total Documents</p>
+                        <div class="mb-0">
+                            <span class="text-muted"><strong>Must Approved</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scriptcustom %}
+
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+{% endblock %}

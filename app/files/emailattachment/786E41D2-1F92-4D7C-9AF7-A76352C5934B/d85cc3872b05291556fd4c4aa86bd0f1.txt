@@ -1,0 +1,31 @@
+Document Design:
+1. Saat Preview, tombol back ditukar dengan tombol edit - done
+2. preview -> pop up save, preview scrollbar mau seperti di print - done
+3. multirow kalau table harus muncul sbg table juga - done
+4. urutan multirow & single (urut sesuai pembuatan) + group
+ - done
+5. line spacing -> check kembali
+
+ - done
+
+Submission of Approval:
+
+6. butuh evaluasi kembali apakah attachment di submission of approval cukup 5 atau ditambahkan (tidak usah)
+7. list surat diurut alphabet
+
+ - done
+
+Monitoring
+
+8. notes approver
+ - cek max length di db - done
+9. jenjang untuk kirim email - done
+10. uu id? generate id approval -> tambah field
+ - done
+11. Tombol print ganti warna kuning - done
+
+
+Update pada SP
+MPMDS_PENGAJUANAPPROVAL_ANSWER_MULTIPLE_INSERT
+MPMDS_PENGAJUANAPPROVAL_GETANSWER_MULTIROW
+MPMDS_PENGAJUANMATRIX_CHECK_NPK

@@ -1,0 +1,195 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+
+<h3>{{ title }}</h3>
+
+<script>
+    var activeversion = '{{ request.activeversiondocument }}'
+    var documentid = '{{ request.masterdocid }}'
+    var years = '{{ request.years }}'
+    var nosig = '{{ request.nosig }}'
+    var layout = '{{ request.layout }}'
+    var usersess = '{{ usersession.npk }}'
+</script>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 style="color: transparent">Pepe Sedati</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0" style="background-color: transparent">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/submission/submissions">Submission</a></li>
+                    <li class="breadcrumb-item"><a href="/submission/submissions/fillformrequest/{{ request.requestapprovalid }}">Fill Form</a></li>
+                    <li class="breadcrumb-item"><a href="/submission/submissions/authorizationrequest/{{ request.requestapprovalid }}">Auth Fill</a></li>
+                    <li class="breadcrumb-item"><a href="/submission/submissions/uploadfilerequest/{{ request.requestapprovalid }}">File Upload</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div class="card-body">
+        <div class="row">
+            <input type="hidden" name="requestapprovalid" id="requestapprovalid" value="{{ request.requestapprovalid }}">
+            <div class="col-md-3">
+                <strong>Request Approval Id</strong>
+            </div>
+            <div class="col-md-9">
+                <strong class="text-warning">{{ request.requestid }}</strong>
+            </div>
+            <div class="col-md-3">
+                <strong>Request Approval Number</strong>
+            </div>
+            <div class="col-md-9">
+                {{ request.requestapprovalnumber }}
+            </div>
+            <div class="col-md-3">
+                <strong>Document Name</strong>
+            </div>
+            <div class="col-md-9">
+                {{ request.name }}
+            </div>
+            <div class="col-md-3">
+                <strong>Description</strong>
+            </div>
+            <div class="col-md-9">
+                {{ request.desc }}
+            </div>
+            <div class="col-md-3">
+                <strong>PIC Requester</strong>
+            </div>
+            <div class="col-md-9">
+                {{ request.picname }}
+            </div>
+            <div class="col-md-3">
+                <strong>PIC NPK</strong>
+            </div>
+            <div class="col-md-9">
+                {{ request.picrequester }}
+            </div>
+            <div class="col-md-3">
+                <strong>PIC Division</strong>
+            </div>
+            <div class="col-md-9">
+                {{ request.divisi }}
+            </div>
+            <div class="col-md-3">
+                <strong>Status</strong>
+            </div>
+            <div class="col-md-9">
+                {% if request.statusrequest == 0 %}
+                <span class="badge badge-warning">Draft</span>
+                {% elif request.statusrequest == 1 %}
+                <span class="badge badge-success">Submitted</span>
+                {% else %}
+                <span class="badge badge-danger">Cancel</span>
+                {% endif %}
+            </div>
+            <div class="col-md-3">
+                <strong>Preview Pdf</strong>
+            </div>
+            <div class="col-md-9">
+                <button type="button" class="btn btn-dark btn-sm mt-1" id="btn-preview"><i class="fa-solid fa-magnifying-glass"></i> Preview</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="card flex-fill">
+    <div class="card-body">  
+        <div class="question-part"></div>
+    </div>
+</div>
+
+<hr />
+
+<div class="card flex-fill">
+    <div class="card-body">  
+        <div class="workflow-part dx-container">
+            <div id ="grid-main"></div>
+        </div>
+    </div>
+    <div class="tablehtml" style="display: none;"> </div>
+</div>
+
+<hr />
+
+<div class="card flex-fill">
+    <div class="card-body">  
+        <div class="row file-part"></div>
+    </div>
+</div>
+
+<div class="button-area">
+</div>
+
+<div class="modal fade" id="preview-modal" tabindex="-1" role="dialog" aria-labelledby="preview-modal-Label"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-light">
+            <div class="form-group row">
+                <style>
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+
+                    td {
+                        border: 1px solid rgb(0, 0, 0);
+                        padding: 2px 5px;
+                        white-space: pre
+                    }
+
+                    .ql-align-center {
+                        text-align: center
+                    }
+
+                    .ql-align-justify {
+                        text-align: justify
+                    }
+
+                    .ql-align-right {
+                        text-align: right
+                    }
+
+                    p {
+                        margin: 0;
+                    }
+
+                    td > p {
+                        word-break: break-all;
+                    }
+                </style>
+                <div id="testimoni" style="   
+                padding:1cm;
+                margin:1cm auto;
+                border-radius: 5px;
+                background: white;
+                width: 21cm;
+                height: 29.7cm;
+                overflow: auto;">
+                
+                </div>
+                <div class="form-group row col-12">
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-secondary mb-3" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scriptcustom %}
+
+<script src="{{ url_for('static', filename='js/page/submission/postingrequest.js') }}"></script>
+<script src="{{ url_for('static', filename='js/page/submission/contentconverter.js') }}"></script>
+
+{% endblock %}

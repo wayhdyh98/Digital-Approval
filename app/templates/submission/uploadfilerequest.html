@@ -1,0 +1,96 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+
+<h3>{{ title }}</h3>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 style="color: transparent">Pepe Sedati</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0" style="background-color: transparent">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/submission/submissions">Submission</a></li>
+                    <li class="breadcrumb-item"><a href="/submission/submissions/fillformrequest/{{ request.requestapprovalid }}">Fill Form</a></li>
+                    <li class="breadcrumb-item"><a href="/submission/submissions/authorizationrequest/{{ request.requestapprovalid }}">Auth Fill</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <input type="hidden" name="documentid" id="documentid" value="{{ request.masterdocid }}">
+    <div class="col-md-3">
+        <strong>Request Approval Id</strong>
+    </div>
+    <div class="col-md-9">
+        <strong class="text-warning">{{ request.requestapprovalid }}</strong>
+    </div>
+    <div class="col-md-3">
+        <strong>Request Approval Number</strong>
+    </div>
+    <div class="col-md-9">
+        {{ request.requestapprovalnumber }}
+    </div>
+    <div class="col-md-3">
+        <strong>Document Name</strong>
+    </div>
+    <div class="col-md-9">
+        {{ request.name }}
+    </div>
+    <div class="col-md-3">
+        <strong>Description</strong>
+    </div>
+    <div class="col-md-9">
+        {{ request.desc }}
+    </div>
+    <div class="col-md-3">
+        <strong>Status</strong>
+    </div>
+    <div class="col-md-9">
+        {% if request.statusrequest == 0 %}
+        <span class="badge badge-warning">Draft</span>
+        {% elif request.statusrequest == 1 %}
+        <span class="badge badge-success">Submitted</span>
+        {% else %}
+        <span class="badge badge-danger">Cancel</span>
+        {% endif %}
+    </div>
+</div>
+
+<hr />
+<input type="hidden" name="requestapprovalid" id="requestapprovalid" value="{{ request.requestapprovalid }}" />
+<div class="card flex-fill">
+    <div class="card-header">
+        <div class="card-actions float-end">
+            <div class="dropdown position-relative"></div>
+        </div>
+    </div>
+    <div class="card-body row">
+        <label class="form-label mb-1">Do You Want to Upload An Attachment File?</label>
+        <div class="form-check form-switch mb-3" style="padding-left: 3.5em;">
+            <input class="form-check-input" type="checkbox" id="filequestion" name="filequestion" value="0">
+            <label class="form-check-label" for="filequestion"><span id="yes-text">Yes</span> or <span id="no-text">No</span></label>
+        </div>
+        <div class="div-upload upload-area" style="display: none">
+        </div>
+        <div class="col-md-6">
+            <div class="div-upload">
+                <button type="button" class="btn btn-success col-12 btn-add"><i class="fa-solid fa-plus"></i>Add</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-primary col-12 btn-next"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>Next</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scriptcustom %}
+
+<script src="{{ url_for('static', filename='js/page/submission/uploadfilerequest.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,271 @@
+{% extends 'layouts/fullscreen.html' %}
+
+{% block content %}
+
+<script>
+    var layout = '{{ document.layout }}'
+</script>
+
+<h3>{{ title }}</h3>
+
+<div class="editor-box row">
+    <div class="col editor-content no-padding" style="position: relative;">
+        <div class="card flex-fill">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong>Document Id</strong>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="hidden" id="documentid-text" value="{{ document.masterdocid }}" />
+                        <strong class="text-warning">{{ document.masterdocid }}</strong>
+                    </div>
+                    <div class="col-md-2 pr-0">
+                        <strong>Version Document</strong>
+                    </div>
+                    <div class="col-md-2 pl-0">
+                        <input type="hidden" id="documentversion-text" value="{{ document.version }}" />
+                        {{ document.version }}
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Document Name</strong>
+                    </div>
+                    <div class="col-md-5">
+                        {{ document.name }}
+                    </div>
+                    <div class="col-md-2 pr-0">
+                        <strong>Version Design</strong>
+                    </div>
+                    <div class="col-md-2 pl-0">
+                        <select class="form-select form-select-sm" style="padding-bottom: 0.01rem !important; padding-top: 0.01rem !important;" name="version" id="version"></select>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Description</strong>
+                    </div>
+                    <div class="col-md-9">
+                        {{ document.desc }}
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <strong>Status</strong>
+                    </div>
+                    <div class="col-md-5">
+                        {% if document.status == 1 %}
+                        <span class="badge badge-success">Active</span>
+                        {% else %}
+                        <span class="badge badge-danger">In-active</span>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-2 pr-0">
+                        <strong>Activate Version</strong>
+                    </div>
+                    <div class="col-md-2 pl-0">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="activeversion" value="0" data-origin="-1">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                <i class="fa-solid fa-lock-open" id="iconversion" style="color: #495057;"></i>
+                                <span id="notif-save" style="color: #e8647c; font-size: 9px; display: none">*Need to be Saved!</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Save Design</strong>
+                    </div>
+                    <div class="col-md-9">
+                        <button type="button" class="btn btn-dark btn-sm mt-1" id="btn-preview" data-bs-toggle="modal" data-bs-target="#preview-modal"><i class="fa-solid fa-magnifying-glass"></i> Preview</button>
+                        <button type="button" class="btn btn-warning btn-sm mt-1" id="btn-design"><i class="fa-solid fa-compass-drafting"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card flex-fill">
+            <div class="card-body">
+                <div id="editor">
+                </div>
+            </div>
+        </div>     
+    </div>
+    <div class="col-3 px-0" id="menuTool">
+        <div class="ibox">
+            <div class="editor-content" style="max-height: 70%; overflow-y: scroll; position: fixed;margin-right: 3.5%; margin-bottom: 200px;">
+                <div class="form-group container px-1">
+                    <div class="card flex-fill">
+                        <div class="card-body" style="padding: 5%;">
+                            <div class="row mb-3">
+                                <label class="col-sm">Choose Document</label>
+                                <div class="col-sm">
+                                    <select class="form-control" name="thedocument" id="thedocument"></select>
+                                </div>
+                            </div>
+                            <div class="row mb-3 choose-design" style="display: none">
+                                <label class="col-sm">Choose Design</label>
+                                <div class="col-sm">
+                                    <select class="form-control" name="thedesign" id="thedesign"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button id="viewtemp" name="viewtemp" type="button" class="btn btn-success btn-block" style="float:left;" disabled>Duplicate Document</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                    
+                    <div class="card flex-fill">
+                        <div class="card-body" style="padding: 5%;">
+                            <div class="row mb-3">
+                                <label class="col-sm">Choose Group</label>
+                                <div class="col-sm">
+                                    <select class="form-control" name="questiongroup" id="questiongroup"></select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm">Choose Question</label>
+                                <div class="col-sm">
+                                    <select class="form-control" name="question" id="question">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3" id="rowmultibutton">
+                                <div class="col-sm">
+                                    <button id="btn-table" class="btn btn-primary btn-block btn-insert" style="float:left;" data-insert="Table">Add as Table</button>
+                                </div>
+                                <div class="col-sm">
+                                    <button id="btn-card" class="btn btn-primary btn-block btn-insert" style="float:left;" data-insert="Card">Add as Card</button>
+                                </div>
+                            </div>
+                            <div class="row" id="rowsinglebutton">
+                                <div class="col-sm">
+                                    <button id="btn-question" class="btn btn-primary btn-block btn-insert" style="float:left;" data-insert="Question">Add Question</button>
+                                </div>
+                                <div class="col-sm">
+                                    <button id="btn-questionanswer" class="btn btn-primary btn-block btn-insert" style="float:left;" data-insert="##Answer_Question##">Add Answer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card flex-fill">
+                        <div class="card-body" style="padding: 5%;">
+                            <div class="row mb-3">
+                                <label class="col-sm">Choose Signature</label>
+                                <div class="col-sm">
+                                    <select class="form-control" name="masterapprove" id="masterapprove"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <button id="approver-signature" class="btn btn-warning btn-block btn-sm btn-insert" style="float:left;" data-insert="##Authorisasi_Level##">Add Sign</button>
+                                </div>
+                                <div class="col-sm">
+                                    <button id="approver-title" class="btn btn-warning btn-block btn-sm btn-insert" style="float:left;" data-insert="##Title_Authorisasi_Level##">Add Title</button>
+                                </div>
+                                <div class="col-sm">
+                                    <button id="approver-name" class="btn btn-warning btn-block btn-sm btn-insert" style="float:left;" data-insert="##Nama_Authorisasi_Level##">Add Name</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card flex-fill">
+                        <div class="card-body" style="padding: 5%;">
+                            <div style="text-align: center;">
+                                <label class="col-sm" style="font-size: 15px;">Table</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <button class="btn btn-secondary btn-outline btn-block btn-insert-table" id="insert-table-bordered" data-insert="##bordered">Insert Table Bordered</button>
+                                </div>
+                                <div class="col-sm">
+                                    <button class="btn btn-secondary btn-block btn-insert-table" id="insert-table-borderless" data-insert="##borderless">Insert Table Borderless</button>
+                                </div>
+                            </div>
+                            <hr />
+                            <div style="text-align: center;">
+                                <label class="col-sm" style="font-size: 15px;">Page Break</label>
+                            </div>
+                            <div class="row px-2">
+                                <button class="btn col-12 btn-secondary btn-block btn-insert" id="pagebreak" data-insert="##Page_Break##">Insert Page Break</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group container px-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <button id="abc" name="viewtemp" type="button" class="btn btn-primary btn-block" style="float:left; visibility: hidden;">View Template</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="preview-modal" tabindex="-1" role="dialog" aria-labelledby="preview-modal-Label"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-light">
+            <div class="form-group row">
+                    <style>
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+
+                        td {
+                            border: 1px solid rgb(255, 255, 255);
+                            padding: 2px 5px;
+                            white-space: pre
+                        }
+
+                        .ql-align-center {
+                            text-align: center
+                        }
+
+                        .ql-align-justify {
+                            text-align: justify
+                        }
+
+                        .ql-align-right {
+                            text-align: right
+                        }
+
+                        p {
+                            margin: 0;
+                        }
+
+                        td > p {
+                            word-break: break-all;
+                        }
+                    </style>
+                <div id="testimoni" style="   
+                padding:1cm;
+                margin:1cm auto;
+                border:1px #d3d3d3 solid;
+                border-radius: 5px;
+                background: white;
+                overflow: auto;"></div>
+                
+                <div class="form-group row col-12">
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-secondary mb-3" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block scriptcustom %}
+
+<script src="{{ url_for('static', filename='js/page/document/designquill.js') }}"></script>
+<script src="{{ url_for('static', filename='js/page/document/contentconverter.js') }}"></script>
+
+{% endblock %}

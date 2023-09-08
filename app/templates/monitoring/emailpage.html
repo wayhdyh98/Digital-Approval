@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body id="container">
+	<title>{{title}}</title>
+    <meta charset="utf-8">
+    <meta name="description" content={{description}}>
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <!-- fonts -->
+    <link href="{{ url_for('static', filename='css/font-google.css') }}" rel="stylesheet">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-4.3.1-min.css') }}"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- datepicker -->
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/datepicker-min.css') }}"
+        integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- DevExtreme -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/lib/devextreme/css/dx.common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/lib/devextreme/css/dx.light.css') }}">
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/lib/fontawesome/css/all.min.css') }}">
+
+    <!-- default -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/light.css') }}">
+
+    <style>
+        .pagebreak { page-break-before: always; }
+    </style>
+
+<script>
+    var layout = '{{ request.layout }}'
+    var masterdoc = '{{ request.masterdocid }}'
+    var picid = '{{ picid }}'
+</script>
+
+<input type="hidden" name="requestapprovalid" id="requestapprovalid" value="{{ request.requestapprovalid }}">
+<center>
+    <div class="mb-1 col-md-12" style="margin-top: 20%">
+        <h2 class="form-label">Approve atau Reject?</h2>
+        <h4 class="form-label">Silakan ambil keputusan anda.</h4>
+    </div>
+    <div class="tablehtml" style="display: none;"></div>
+    <div class="button-area"></div>
+</center>
+
+<div class="modal fade" id="preview-modal" tabindex="-1" role="dialog" aria-labelledby="preview-modal-Label"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-light">
+            <div class="form-group row">
+                <div id="testimoni" style="   
+                    padding:1cm;
+                    margin:1cm auto;
+                    border-radius: 5px;
+                    background: white;
+                    overflow: auto;">
+                        <style>
+                            @page {
+                                size:auto
+                            }
+
+                            table {
+                                width: 100%;
+                                border-collapse: collapse;
+                            }
+        
+                            td {
+                                border: 1px solid rgb(0, 0, 0);
+                                padding: 2px 5px;
+                                white-space: pre
+                            }
+        
+                            .ql-align-center {
+                                text-align: center
+                            }
+        
+                            .ql-align-justify {
+                                text-align: justify
+                            }
+        
+                            .ql-align-right {
+                                text-align: right
+                            }
+        
+                            p {
+                                margin: 0;
+                            }
+        
+                            td > p {
+                                word-break: break-all;
+                            }
+                        </style>
+                    {{ request.layoutdocument|safe }}
+                </div>
+                <div class="form-group row col-12">
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-secondary mb-3" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<!-- DevExtreme Jquery library -->
+<script src="{{ url_for('static', filename='node_modules/lib/devextreme/js/jquery-2.2.3.min.js') }}"></script>
+
+<!-- bootstrap -->
+<script src="{{ url_for('static', filename='js/bootstrap-4.3.1-min.js') }}"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+<!-- datepicker -->
+<script src="{{ url_for('static', filename='js/datepicker-min.js') }}"
+    integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- font awesome -->
+<script src="{{ url_for('static', filename='node_modules/lib/fontawesome/js/all.min.js') }}"></script>
+
+<!-- sweetalert -->
+<script src="{{ url_for('static', filename='js/sweetalert2.js') }}"></script>
+
+<!-- jquery loadingoverlay -->
+<script src="{{ url_for('static', filename='js/loadingoverlay-min.js') }}">
+</script>
+
+<!-- DevExtreme libraries (reference only one of them) -->
+<script src="{{ url_for('static', filename='node_modules/lib/devextreme/js/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename='node_modules/lib/devextreme/js/dx.all.js') }}"></script>
+
+<!-- sparkline -->
+<script src="{{ url_for('static', filename='js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+
+<!-- default -->
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vie.js') }}"></script>
+<script src="{{ url_for('static', filename='js/default.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+<script src="{{ url_for('static', filename='js/page/monitoring/emailpage.js') }}"></script>
+
+</html>
+
+
+
+

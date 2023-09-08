@@ -1,0 +1,32 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+
+<main>
+    <!-- browse user -->
+    <section>
+        <div class="container mt-2 mb-2">
+            <h3>{{ title }}</h3>
+
+            <div class="card flex-fill">
+                <div class="card-header">
+                    <div class="card-actions float-end">
+                        <div class="dropdown position-relative"></div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id ="grid-main"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}
+
+{% block scriptcustom %} 
+
+<script src="{{ url_for('static', filename='js/page/user/data.js') }}"></script>
+<script src="{{ url_for('static', filename='js/page/user/browse.js') }}"></script>
+
+{% endblock %}

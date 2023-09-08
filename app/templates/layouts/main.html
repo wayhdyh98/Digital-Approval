@@ -1,0 +1,191 @@
+<!doctype html>
+{% import "macros.html" as m %}
+<html>
+
+<head>
+    <title>{{title}}</title>
+    <meta charset="utf-8">
+    <meta name="description" content={{description}}>
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <!-- fonts -->
+    <link href="{{ url_for('static', filename='css/font-google.css') }}" rel="stylesheet">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-4.3.1-min.css') }}"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- datepicker -->
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/datepicker-min.css') }}"
+        integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- DevExtreme -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/lib/devextreme/css/dx.common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/lib/devextreme/css/dx.light.css') }}">
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/lib/fontawesome/css/all.min.css') }}">
+
+    <!-- default -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/light.css') }}">
+
+    <style>
+        .pagebreak { page-break-before: always; }
+    </style>
+
+    {% block csscustom %} {% endblock %}
+</head>
+
+
+<body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-behaviour="sticky">
+    <div class="wrapper">
+        <!-- <nav id="sidebar" class="sidebar">
+            <div class="sidebar-content js-simplebar" data-simplebar="init">
+                <div class="simplebar-wrapper" style="margin: 0px;">
+                    <div class="simplebar-height-auto-observer-wrapper">
+                        <div class="simplebar-height-auto-observer"></div>
+                    </div>
+                    <div class="simplebar-mask">
+                        <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                            <div class="simplebar-content-wrapper" tabindex="0" role="region"
+                                aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;">
+                                <div class="simplebar-content" style="padding: 0px;">
+                                    
+                                    <div class="sidebar-cta">
+                                        <div class="sidebar-cta-content">
+                                            <strong class="d-inline-block mb-2">Request Approval</strong>
+                                            <div class="d-grid">
+                                                <a href="{{ url_for('submissionbp.request_approval') }}"
+                                                    class="btn btn-primary"><i
+                                                        class="fa fa-envelope-open"></i>
+                                                    Request</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <ul class="sidebar-nav">
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" href="/home">
+                                                <i class="fa-solid fa-table-columns"></i>
+                                                Dashboards
+                                            </a>
+                                        </li>
+
+                                        <li class="sidebar-header" style="padding-top: 13px">
+                                            Approval Tools
+                                        </li>   
+
+                                        
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" href="{{ url_for('documentbp.browse') }}">
+                                                <i class="fa fa-file"></i>
+                                                Documents
+                                            </a>
+                                        </li>
+                                        
+
+                                        
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" href="{{ url_for('submissionbp.submissions') }}">
+                                                <i class="fa fa-cloud"></i>
+                                                Submissions (Request)
+                                            </a>
+                                        </li>
+                                        
+
+                                        
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" href="{{ url_for('clientbp.browse') }}">
+                                                <i class="fa fa-person"></i>
+                                                Clients
+                                            </a>
+                                        </li>
+                                        
+
+                                        <li class="sidebar-header">
+                                            Report
+                                        </li>
+
+                                        
+                                        <li class="sidebar-item">
+                                            <a data-bs-target="#monitorings" data-bs-toggle="collapse"
+                                                class="sidebar-link">
+                                                <i class="fa fa-desktop"></i>
+                                                Monitorings
+                                            </a>
+                                            <ul id="monitorings" class="sidebar-drowdown list-unstyled collapse show"
+                                                data-bs-parent="#sidebar">
+                                                <li class="sidebar-item"><a class="sidebar-link"
+                                                        href="{{ url_for('monitoringbp.document') }}"><i
+                                                            class="fa fa-file"></i> Document</a></li>
+                                                <li class="sidebar-item"><a class="sidebar-link"
+                                                        href="{{ url_for('monitoringbp.trackingworkflow') }}"><i class="fa fa-location-dot"></i> Tracking Workflow</a></li>
+                                            </ul>
+                                        </li>
+                                        
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="simplebar-placeholder" style="width: auto; height: 1254px;"></div>
+                </div>
+            </div>
+        </nav> -->
+
+        <div class="main">
+            {% include 'frame/navigation.html' %}
+            <div class="content">
+                <div class="container-fluid p-0">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- DevExtreme Jquery library -->
+<script src="{{ url_for('static', filename='node_modules/lib/devextreme/js/jquery-2.2.3.min.js') }}"></script>
+
+<!-- bootstrap -->
+<script src="{{ url_for('static', filename='js/bootstrap-4.3.1-min.js') }}"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+<!-- datepicker -->
+<script src="{{ url_for('static', filename='js/datepicker-min.js') }}"
+    integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- font awesome -->
+<script src="{{ url_for('static', filename='node_modules/lib/fontawesome/js/all.min.js') }}"></script>
+
+<!-- sweetalert -->
+<script src="{{ url_for('static', filename='js/sweetalert2.js') }}"></script>
+
+<!-- jquery loadingoverlay -->
+<script src="{{ url_for('static', filename='js/loadingoverlay-min.js') }}">
+</script>
+
+<!-- DevExtreme libraries (reference only one of them) -->
+<script src="{{ url_for('static', filename='node_modules/lib/devextreme/js/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename='node_modules/lib/devextreme/js/dx.all.js') }}"></script>
+
+<!-- sparkline -->
+<script src="{{ url_for('static', filename='js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+
+<!-- default -->
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vie.js') }}"></script>
+<script src="{{ url_for('static', filename='js/default.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+
+{% block scriptcustom %} {% endblock %}
+
+</html>

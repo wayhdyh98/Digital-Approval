@@ -1,0 +1,42 @@
+BAST
+
+INVOICE ke SALES / COLLECTOR
+
+Penagihan:
+1. Pakai Nota (invoice di scan)
+2. Tanpa Nota (cara input ke system nya bagaimana?)
+
+
+Ambil data invoice overdue berdasarkan Laporan Penagihan Parts.
+-> diperlukan module untuk menarik data invoice yang overdue berdasarkan kode salesman, atau data collector(khusus collector data yang ditarik adalah semua invoice)
+
+1. Module informasi invoice overdue
+	Parameter: kode sales, dan range overdue (ex 1-5 hari, 6-10 hari, dst)
+	Output: data invoice yang overdue
+	Flow:
+		- Invoice yang tampil bisa di check list (select untuk dapat dibuatkan bundling)
+		- setelah bundling terbentuk, scan nota fisik yang akan diserahkan (validasi dengan daftar invoice yang dipilih).
+		- Informasikan total invoice, dan total invoice yang terdapat nota dan yang tidak.
+		- QR code di print, dan terdapat informasi total, total nota, total tidak pakai nota, dan daftar invoice.
+		
+
+2. Scan penerimaan bundling di MOSA
+	- Scan QR Code bundling
+	- tampilkan jumlah invoice dan daftar invoice.
+	
+3. Proses pembayaran.
+	- Relate ke bukti pembayaran.
+	- Relate ke informasi PICA.
+	
+4. Pengembalian Invoice/Nota ke AR
+	- Scan bundling
+	- Tampilkan informasi invoice yang ada di bundling tersebut, ditambahkan attribute lunas / tidak.
+	- Proses scan invoice untuk memvalidasi nota / invoice yang kembali.
+	- Nota / invoice yang kembali dapat dibuatkan nomer bundling yang baru.
+	
+5. Laporan
+	- Laporan performance.
+		- Lunas / Tidak Lunas
+		- Ada catatan / tidak (based on pica)
+		- bisa dilihat per catatannya
+	- Laporan BAST

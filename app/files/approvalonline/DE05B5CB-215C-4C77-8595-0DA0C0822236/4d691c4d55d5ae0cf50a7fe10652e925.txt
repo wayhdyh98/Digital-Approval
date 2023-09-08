@@ -1,0 +1,4 @@
+\\10.10.101.12\c$\
+
+usr gundala
+pass P@ssw0rd1

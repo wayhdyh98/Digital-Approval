@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% import "macros.html" as m %}
+<html lang="en">
+<head>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+	<!-- bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-4.3.1-min.css') }}"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
+	<!-- Semantic Main CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/semantic-main.css') }}" />
+	<!-- Semantic Reset CSS -->
+	<link rel="stylesheet"
+	href="{{ url_for('static', filename='css/semantic-reset.css') }}" />
+	<!-- Semantic Menu CSS -->
+	<link rel="stylesheet"
+	href="{{ url_for('static', filename='css/semantic-menu.css') }}" />
+	
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/design-light.css') }}">
+
+	<!-- Quill Better Table -->
+	<link href="{{ url_for('static', filename='css/quill-snow.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/quill-better-table.css') }}" rel="stylesheet">
+
+	<!-- Fontawesome -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/lib/fontawesome/css/all.min.css') }}">
+	{% block csscustom %} {% endblock %}
+</head>
+<body id="container">
+	<div id="header">
+		{% block head %}
+		<!-- Browser tab name -->
+		<title>{{ title }}</title>
+		<!-- Navbar -->
+		{% endblock %}
+	</div>
+	<!-- Message flashing -->
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+	<div class="messages-block">
+		{% for category, message in messages %}
+		<div class="ui {{ category }} message flash">{{ message }}</div>
+		{% endfor %}
+	</div>
+	{% endif %}
+	{% endwith %}
+	<div id="body" class="body">
+		<main class="content">
+			<div class="container-fluid p-0">
+				{% block content %}{% endblock %}
+			</div>
+		</main>
+	</div>
+	</div>
+</body>
+<!-- DevExtreme Jquery library -->
+<script src="{{ url_for('static', filename='node_modules/lib/devextreme/js/jquery-2.2.3.min.js') }}"></script>
+
+<!-- datepicker -->
+<script src="{{ url_for('static', filename='js/datepicker-min.js') }}"
+    integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- font awesome -->
+<script src="{{ url_for('static', filename='node_modules/lib/fontawesome/js/all.min.js') }}"></script>
+
+<!-- sweetalert -->
+<script src="{{ url_for('static', filename='js/sweetalert2.js') }}"></script>
+
+<!-- jquery loadingoverlay -->
+<script src="{{ url_for('static', filename='js/loadingoverlay-min.js') }}">
+</script>
+
+<!-- default -->
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vie.js') }}"></script>
+<script src="{{ url_for('static', filename='js/default.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+
+<!-- bootstrap -->
+<script src="{{ url_for('static', filename='js/bootstrap-4.3.1-min.js') }}"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+
+<!-- Main Quill library -->
+<script src="{{ url_for('static', filename='js/quill-snow.js') }}"></script>
+<script src="{{ url_for('static', filename='js/quill-better-table.js') }}"></script>
+
+{% block scriptcustom %} {% endblock %}
+
+</html>

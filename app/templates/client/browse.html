@@ -1,0 +1,78 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+
+<h3>{{ title }}</h3>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 style="color: transparent">Pepe Sedati</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0" style="background-color: transparent">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div class="card-header">
+        <div class="card-actions float-end">
+            <div class="dropdown position-relative"></div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="grid-main"></div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="profile-client-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Profile Details</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-0"><span id="profile-name"></span></h5>
+                            <div class="text-muted mb-2"><span id="position-name"></span></div>
+
+                            <div>
+                                <a class="btn btn-primary btn-sm" id="profile-email" href="#"><i class="fa fa-envelope"></i>
+                                    Email</a>
+                            </div>
+                        </div>
+                        <hr class="my-0">
+                        <div class="card-body">
+                            <h5 class="h6 card-title">Working Information</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-1">Division <a href="#"><span id="division-name"></span></a></li>
+                                <li class="mb-1">Department <a href="#"><span id="department-name"></span></a></li>
+                                <li class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-briefcase feather-sm me-1">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                    </svg> Works at <a href="#"><span id="company-name"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scriptcustom %}
+
+<script src="{{ url_for('static', filename='js/page/client/browse.js') }}"></script>
+
+{% endblock %}

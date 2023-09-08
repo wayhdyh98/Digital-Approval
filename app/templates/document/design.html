@@ -1,0 +1,283 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+
+<h3>{{ title }}</h3>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 style="color: transparent">Pepe Sedati</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0" style="background-color: transparent">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/document/browse">Document</a></li>
+                    
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div class="card-header">
+        <div class="card-actions float-end">
+            <div class="dropdown position-relative"></div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <strong>Document Id</strong>
+            </div>
+            <div class="col-md-9">
+                <input type="hidden" id="documentid-text" value="{{ document.masterdocid }}" />
+                <strong class="text-warning">{{ document.masterdocid }}</strong>
+            </div>
+            <div class="col-md-3">
+                <strong>Document Name</strong>
+            </div>
+            <div class="col-md-9">
+                {{ document.name }}
+            </div>
+            <div class="col-md-3">
+                <strong>Description</strong>
+            </div>
+            <div class="col-md-9">
+                {{ document.desc }}
+            </div>
+            <div class="col-md-3">
+                <strong>Status</strong>
+            </div>
+            <div class="col-md-9">
+                {% if document.status == 1 %}
+                <span class="badge badge-success">Active</span>
+                {% else %}
+                <span class="badge badge-danger">In-active</span>
+                {% endif %}
+            </div>
+            <div class="col-md-3">
+                <strong>Design</strong>
+            </div>
+            <div class="col-md-9">
+                <button type="button" class="btn btn-warning btn-sm mt-1" id="btn-design"><i class="fa-solid fa-compass-drafting"></i> Design</button>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="mt-5">
+            <h3>Group or Section</h3>
+            <small>select the group to show list of question</small>
+            <div class="mt-2">
+                <div id="grid-main"></div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="mt-5" id="question-section" style="visibility: hidden" tabindex='1'>
+            <h3 id="question-text">Question</h3>
+            <div class="mt-2">
+                <div id="grid-main-question"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Group Question -->
+<div class="modal fade" id="groupquestion-modal" tabindex="-1" role="dialog" aria-labelledby="groupquestion-modal-Label"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="groupquestion-modal-Label">Group Question</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="group-sectiontype-select">Section Type</label>
+                        <select class="form-control" id="group-sectiontype-select">
+                            <option value="0">Single</option>
+                            <option value="1">Multi Row</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" id="groupquestionid-text" value="-1" />
+                        <label for="groupquestion-title-text">Group Title</label>
+                        <input type="text" class="form-control" id="groupquestion-title-text" />
+                    </div>
+                    <div class="form-group select-document">
+                        <label for="from-documentcopy-select">Copy Group From Document</label>
+                        <select class="form-control" id="from-documentcopy-select"></select>
+                    </div>
+                    <div class="form-group select-groupsection">
+                        <label for="from-groupsectioncopy-select">Select Group Section</label>
+                        <select class="form-control" id="from-groupsectioncopy-select"></select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-save-groupquestion"><i class="fa fa-floppy-disk"></i>
+                    Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Question -->
+<div class="modal fade" id="question-modal" tabindex="-1" role="dialog" aria-labelledby="question-modal-Label"
+    aria-hidden="true">
+    <input type="hidden" id="question-groupquestionid-text" data-question-groupquestionid-text="" />
+    <input type="hidden" id="question-documentid-text" data-question-documentid-text="" />
+    <input type="hidden" id="questionid-text" data-questionid-text="-1" />
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="question-modal-Label">Question</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <div class="form-group">
+                                <label for="question-questiontype-select">Question Type</label>
+                                <select class="form-control" id="question-questiontype-select">
+                                    <option value="0">Single</option>
+                                    <option value="1">Multi Row</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="question-question-text">Question</label>
+                                <input type="text" class="form-control" id="question-question-text" />
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="question-question-text">Question Note</label>
+                                <textarea class="form-control" row="5" id="question-note-text"></textarea>
+                            </div> 
+
+                            <div class="form-group">
+                                <label for="question-questioncondition-select">Question Condition</label>
+                                <select class="form-control" id="question-questioncondition-select">
+                                    {% for row in questioncondition %}
+                                    <option value="{{ row.designdocumentquestionconditionid }}"
+                                        data-statuscondition="{{ row.statuscondition }}">{{ row.questionconditionname }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- free text area -->
+                            <div id="freetext-area">
+                                <div class="form-group">
+                                    <label for="freetext-component-select">Type of component</label>
+                                    <select class="form-control" id="freetext-component-select">
+                                        <option value="1"
+                                            title="Single-line text input controls. This control is used for items that require only one line of user input, such as search boxes or names">
+                                            Input Text</option>
+                                        <option value="2"
+                                            title="A text area can hold an unlimited number of characters, and the text renders in a fixed-width font (usually Courier).">
+                                            Textarea</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- end of free text area -->
+
+                            <!-- multichoice area -->
+                            <div id="multichoice-area">
+                                <div class="form-group">
+                                    <label for="question-multichoice-text">Insert new choice</label>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" id="question-multichoice-text">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class="btn btn-success btn-large btn-block btn-add-multichoice"><i
+                                                    class="fa fa-add"></i>
+                                                Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="question-multichoice-select">Multi Choice</label>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <select class="form-control" id="question-multichoice-select">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class="btn btn-danger btn-large btn-block btn-remove-multichoice"><i
+                                                    class="fa fa-trash"></i>
+                                                Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of multichoice area -->
+
+                            <!-- master view area -->
+                            <div id="masterview-area">
+                                <div class="form-group">
+                                    <label for="question-masterview-select">Data</label>
+                                    <select class="form-control" id="question-masterview-select">
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- end of master view area -->
+
+                            <div class="form-group">
+                                <input type="checkbox" id="question-mandatory-check" value="1" />
+                                <label for="question-mandatory-check">Mandatory (Prohibited to skip)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="border-left: 1px solid silver;">
+                        <h4>Preview</h4>
+
+                        <div class="mt-2">
+                            <div class="form-group"><i class="fa fa-circle-question text-danger mandatory-sign"
+                                    data-toogle="tooltip" data-html="true" title="must be provided"
+                                    aria-hidden="true"></i>
+                                <label id="label-question"></label>
+                                <div id="note-area">
+                                    <label id="label-question-note" style="color: #A5A5A5; font-size: 11px"></label>
+                                </div>
+                                <div id="question-preview-area"></div>
+                                <div id="question-preview-area-select">
+                                    <select class="form-control" id="question-preview-copy-select">                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-save-question"><i class="fa fa-floppy-disk"></i>
+                    Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scriptcustom %}
+
+<script src="{{ url_for('static', filename='js/page/document/designdocument_groupquestion.js') }}"></script>
+<script src="{{ url_for('static', filename='js/page/document/designdocument_question.js') }}"></script>
+
+{% endblock %}

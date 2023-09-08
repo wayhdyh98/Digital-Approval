@@ -1,0 +1,61 @@
+
+    private void exportPDF()
+    {
+        //transfer file
+        string mimeType;
+        string encoding;
+        string extension;
+        string[] streams;
+        Warning[] warnings;
+        String ftpPath = ConfigurationManager.AppSettings["ftpPath"];
+
+        String username = "";
+        String password = "";
+        String domain = "";
+
+        ReportViewer reportViewer = new ReportViewer();
+        ServerReport serverReport = reportViewer.ServerReport;
+        serverReport.ReportPath = "/MPMREPORT/XXXXXX";
+        serverReport.ReportServerUrl = new Uri(@ConfigurationManager.AppSettings["ReportServerUrl"]);
+        //serverReport.ReportServerUrl = new Uri(@"http://mml-app-axrs/ReportServer");
+        reportViewer.ProcessingMode = ProcessingMode.Local;
+
+        reportViewer.ServerReport.ReportServerCredentials.NetworkCredentials = new System.Net.NetworkCredential(username, password, domain);
+
+        try
+        {
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            parameters.Add(new ReportParameter("InvAwal", item.INVOICEID));
+            parameters.Add(new ReportParameter("InvAkhir", item.INVOICEID));
+            parameters.Add(new ReportParameter("KdCab", "%"));
+            parameters.Add(new ReportParameter("KdGudang", "%"));
+            parameters.Add(new ReportParameter("UnitYear", "%"));
+            parameters.Add(new ReportParameter("DataArea", "MML"));
+            parameters.Add(new ReportParameter("StatusCetakUlang", "0"));
+
+            serverReport.SetParameters(parameters);
+
+            byte[] pdfBytes = serverReport.Render("PDF", string.Empty, out mimeType, out encoding, out extension, out streams, out warnings);
+
+            if (pdfBytes.Length >= 2000) //lebih dari 2 kb
+            {
+                //using ftp upload
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpPath + item.NAMA_FILE + ".pdf");
+                request.Method = WebRequestMethods.Ftp.UploadFile;
+
+                request.Credentials = new NetworkCredential(username, password);
+                request.ContentLength = pdfBytes.Length;
+
+                Stream requestStream = request.GetRequestStream();
+                requestStream.Write(pdfBytes, 0, pdfBytes.Length);
+                requestStream.Close();
+
+                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+
+                response.Close();
+            }
+        }
+        catch (Exception ex)
+        {
+        }
+    }

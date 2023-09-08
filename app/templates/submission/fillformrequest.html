@@ -1,0 +1,79 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+
+<h3>{{ title }}</h3>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 style="color: transparent">Pepe Sedati</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0" style="background-color: transparent">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/submission/submissions">Submission</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <input type="hidden" name="documentid" id="documentid" value="{{ request.masterdocid }}">
+    <div class="col-md-3">
+        <strong>Request Approval Id</strong>
+    </div>
+    <div class="col-md-9">
+        <strong class="text-warning">{{ request.requestapprovalid }}</strong>
+    </div>
+    <div class="col-md-3">
+        <strong>Request Approval Number</strong>
+    </div>
+    <div class="col-md-9">
+        {{ request.requestapprovalnumber }}
+    </div>
+    <div class="col-md-3">
+        <strong>Document Name</strong>
+    </div>
+    <div class="col-md-9">
+        {{ request.name }}
+    </div>
+    <div class="col-md-3">
+        <strong>Description</strong>
+    </div>
+    <div class="col-md-9">
+        {{ request.desc }}
+    </div>
+    <div class="col-md-3">
+        <strong>Status</strong>
+    </div>
+    <div class="col-md-9">
+        {% if request.statusrequest == 0 %}
+        <span class="badge badge-warning">Draft</span>
+        {% elif request.statusrequest == 1 %}
+        <span class="badge badge-success">Submitted</span>
+        {% else %}
+        <span class="badge badge-danger">Cancel</span>
+        {% endif %}
+    </div>
+</div>
+
+<hr />
+<form class="row" action="{{ url_for('submissionbp.request_fillform') }}" method="post">
+    <input type="hidden" name="requestapprovalid" id="requestapprovalid" value="{{ request.requestapprovalid }}" />
+    <input type="hidden" name="arrayquestionid">
+    <input type="hidden" name="arraygroupid">
+    <div id="fillform"></div>
+    <div class="col-md-6 offset-md-6 right">
+        <button type="submit" class="btn btn-primary col-12 btn-next"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>Next</button>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block scriptcustom %}
+
+<script src="{{ url_for('static', filename='js/page/submission/fillformrequest.js') }}"></script>
+<script src="{{ url_for('static', filename='js/page/submission/fillformrequest_groupmultirow.js') }}"></script>
+
+{% endblock %}

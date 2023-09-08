@@ -1,0 +1,1 @@
+http://localhost:44364/App/ApprovalApprove?email=wahyuhidayah.4haha@gmail.com&journalId=MP/KLR/0222/161&tipe=0&kondisi=normal&reqId=REQ22020096&tglAmbil=07/02/2022&ket=sad

@@ -1,0 +1,29 @@
+CREATE TABLE MPMDS.dbo.designdocument_questioncondition (
+	designdocumentquestionconditionid int NOT NULL,
+    questionconditionname varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	questionconditionquery varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    statuscondition INT NOT NULL default(0), -- 0: FREETEXT, 1:MULTICHOICE, 2:QUERY
+	CONSTRAINT PK_designdocument_questioncondition_id PRIMARY KEY (designdocumentquestionconditionid)
+);
+
+INSERT INTO designdocument_questioncondition VALUES(1, 'FREE TEXT', '', 0);
+INSERT INTO designdocument_questioncondition VALUES(2, 'MULTI CHOICE', '', 1);
+INSERT INTO designdocument_questioncondition VALUES(3, 'MASTER DIVISION', 'SELECT COMPANYID, CODE, VALUE FROM MPMDS_ORANGE_DIVISION', 2);
+INSERT INTO designdocument_questioncondition VALUES(4, 'MASTER DEPARTMENT', 'SELECT COMPANYID, CODE, VALUE FROM MPMDS_ORANGE_DEPARTMENT', 2);
+INSERT INTO designdocument_questioncondition VALUES(5, 'MASTER PIC', 'SELECT COMPANYID, CODE, VALUE FROM MPMDS_ORANGE_EMPLOYEE', 2);
+INSERT INTO designdocument_questioncondition VALUES(6, 'MASTER NPK', 'SELECT COMPANYID, CODE, CODE VALUE FROM MPMDS_ORANGE_EMPLOYEE', 2);
+INSERT INTO designdocument_questioncondition VALUES(
+	7, 'MASTER BOD', 
+	'SELECT COMPANY_ID COMPANYID, EMPLOYEE_ID CODE, DISPLAY_NAME VALUE FROM MPMDS_ORANGE_DATA WHERE GRADE_ID BETWEEN 12 AND 20',
+	2
+)
+INSERT INTO designdocument_questioncondition VALUES(
+	8, 'MASTER DIVISION HEAD', 
+	'SELECT COMPANY_ID COMPANYID, EMPLOYEE_ID CODE, DISPLAY_NAME VALUE FROM MPMDS_ORANGE_DATA WHERE GRADE_ID BETWEEN 9 AND 11',
+	2
+)
+INSERT INTO designdocument_questioncondition VALUES(
+	9, 'MASTER DEPARTMENT HEAD', 
+	'SELECT COMPANY_ID COMPANYID, EMPLOYEE_ID CODE, DISPLAY_NAME VALUE FROM MPMDS_ORANGE_DATA WHERE GRADE_ID BETWEEN 7 AND 8',
+	2
+)

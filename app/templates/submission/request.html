@@ -1,0 +1,61 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+
+<h3>{{ title }}</h3>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 style="color: transparent">Pepe Sedati</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0" style="background-color: transparent">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div class="card-header">
+        <div class="card-actions float-end">
+            <div class="dropdown position-relative"></div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form class="row" action="{{ url_for('submissionbp.request_approval') }}" method="post">
+            <input type="hidden" name="select-designdocument-version" id="select-designdocument-version">
+            <input type="hidden" name="select-document-text" id="select-document-text">
+            <div class="mb-3 col-md-6">
+                <label class="form-label">Division Id</label>
+                <select class="form-select flex-grow-1" name="select-division-id" id="select-division-id">
+                </select>
+            </div>
+
+            <div class="mb-3 col-md-6">
+                <label class="form-label">Document Type</label>
+                <select class="form-select flex-grow-1" name="select-document-type" id="select-document-type">
+                </select>
+            </div>
+
+            <div class="mb-3 col-md-12">
+                <label class="form-label">Notes</label>
+                <textarea class="form-control" name="textarea-notes" id="textarea-notes"></textarea>
+            </div>
+
+            <div class="col-md-12">
+                <button class="btn btn-primary btn-next">Next</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scriptcustom %}
+
+<script src="{{ url_for('static', filename='js/page/submission/request.js') }}"></script>
+
+{% endblock %}
